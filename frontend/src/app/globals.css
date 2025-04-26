@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    width: 100vw;
+    height: 100vh;
+}
+
+h1,
+h2 {
+    color: var(--tse-constellation-color-primary-dark);
+}
