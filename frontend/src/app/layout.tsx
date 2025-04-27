@@ -4,15 +4,15 @@ import { ThemeProvider } from "@tritonse/tse-constellation";
 import "./globals.css";
 
 export default function RootLayout({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-    return (
-        <html lang="en">
-            <body>
-                <ThemeProvider>{children}</ThemeProvider>
-            </body>
-        </html>
-    );
+  return (
+    <html lang="en">
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
+    </html>
+  );
 }
