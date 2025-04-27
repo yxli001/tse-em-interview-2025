@@ -7,14 +7,14 @@ const contactRouter = express.Router();
 
 contactRouter.get("/", ContactController.getContacts);
 contactRouter.post(
-    "/",
-    ContactValidator.createContact,
-    ContactController.createContact
+  "/",
+  ContactValidator.createContact,
+  ContactController.createContact
 );
 contactRouter.put(
-    "/:id",
-    ContactValidator.updateContact,
-    ContactController.updateContact
+  "/:id",
+  ContactValidator.updateContact,
+  ContactController.updateContact
 );
 
 export default contactRouter;

@@ -9,17 +9,17 @@ import createHttpError from "http-errors";
  * @param errors the validation result provided by express validator middleware
  */
 const validationErrorParser = (errors: Result<ValidationError>) => {
-    if (!errors.isEmpty()) {
-        let errorString = "";
+  if (!errors.isEmpty()) {
+    let errorString = "";
 
-        // parse through errors returned by the validator and append them to the error string
-        for (const error of errors.array()) {
-            errorString += error.msg + " ";
-        }
-
-        // trim removes the trailing space created in the for loop
-        throw createHttpError(400, errorString.trim());
+    // parse through errors returned by the validator and append them to the error string
+    for (const error of errors.array()) {
+      errorString += error.msg + " ";
     }
+
+    // trim removes the trailing space created in the for loop
+    throw createHttpError(400, errorString.trim());
+  }
 };
 
 export default validationErrorParser;

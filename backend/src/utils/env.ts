@@ -7,7 +7,7 @@ import { cleanEnv } from "envalid";
 import { port, str } from "envalid/dist/validators";
 
 export default cleanEnv(process.env, {
-    PORT: port(), // Port to run backend on
-    MONGODB_URI: str(), // URI of MongoDB database to use
-    FRONTEND_ORIGIN: str(), // URL of frontend, to allow CORS from frontend
+  PORT: port(), // Port to run backend on
+  MONGODB_URI: str(), // URI of MongoDB database to use
+  FRONTEND_ORIGIN: str(), // URL of frontend, to allow CORS from frontend
 });
