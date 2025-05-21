@@ -49,6 +49,10 @@ export default function Home() {
     } catch (error) {
       setError("Failed to load contacts");
       console.error(error);
+    } finally {
+      // BUG 1 SOLUTION
+      // Set loading state back to false after fetching contacts
+      setLoading(false);
     }
   };
 
@@ -70,6 +74,21 @@ export default function Home() {
 
     try {
       await updateContact(currentContact._id, name, phone, email);
+
+      // BUG 4 SOLUTION PART 1
+      // Update the contacts list after updating
+      const updatedContacts = contacts.map((contact) =>
+        contact._id === currentContact._id
+          ? { ...contact, name, phone, email }
+          : contact
+      );
+
+      setContacts(updatedContacts);
+
+      // ALTERNATIVE SOLUTION
+      // Arguably better than the above solution since it 100% ensures the contacts list is always up-to-date
+      // Trade-off is that it makes an extra API call
+      // await fetchContacts();
 
       resetForm();
       setIsEditModalOpen(false);
@@ -166,7 +185,9 @@ export default function Home() {
               <TextField
                 label="Email"
                 type="email"
-                value={phone}
+                // BUG 2 SOLUTION
+                // Wrong state binding - previously `phone` instead of `email`
+                value={email}
                 onChange={(value: string) => setEmail(value)}
               />
               <TextField

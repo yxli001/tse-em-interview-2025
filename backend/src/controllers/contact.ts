@@ -36,13 +36,17 @@ export const createContact: RequestHandler = async (req, res, next) => {
       6
     )}-${digits.slice(6)}`;
 
-    const vote = await Contact.create({
+    // CODE QUALITY ISSUE 1
+    // Variable was named `vote` instead of `contact`
+    const contact = await Contact.create({
       name,
-      phone,
+      // BUG 3 SOLUTION
+      // Use formatted phone number instead of raw phone number
+      phone: formattedPhone,
       email,
     });
 
-    res.status(201).json(vote);
+    res.status(201).json(contact);
   } catch (error) {
     next(error);
   }
@@ -60,6 +64,10 @@ export const updateContact: RequestHandler = async (req, res, next) => {
     });
 
     if (updates.phone) {
+      // CODE QUALITY ISSUE 2
+      // The block of code below that formats the phone number is repeated in createContact AND updateContact
+      // Should be refactored into a helper function
+
       // FORMAT PHONE NUMBER
       let raw = updates.phone.trim();
       let digits = raw.replace(/\D/g, "");
@@ -71,6 +79,10 @@ export const updateContact: RequestHandler = async (req, res, next) => {
         3,
         6
       )}-${digits.slice(6)}`;
+
+      // BUG 4 SOLUTION PART 2
+      // Use formatted phone number instead of raw phone number
+      updates.phone = formattedPhone;
     }
 
     const contact = await Contact.findByIdAndUpdate(
